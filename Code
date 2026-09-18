@@ -1,0 +1,38 @@
+//AUTOMATIC_PARKING_BARRIER
+#include<Servo.h>
+Servo myServo;
+int redPin=2;
+int greenPin=4;
+int buttonPin=3;
+int buzzPin=8;
+void setup() {
+  // put your setup code here, to run once:
+Serial.begin(9600);
+myServo.attach(9);
+pinMode(buttonPin,INPUT_PULLUP);
+pinMode(redPin,OUTPUT);
+pinMode(greenPin,OUTPUT);
+pinMode(buzzPin,OUTPUT);
+myServo.write(0);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+digitalWrite(redPin,HIGH);  
+int buttonState=digitalRead(buttonPin);
+Serial.println(buttonState);
+delay(250);
+if(buttonState==LOW){
+  digitalWrite(redPin,LOW);
+  digitalWrite(greenPin,HIGH);
+  myServo.write(90);
+  digitalWrite(buzzPin,HIGH);
+  delay(2000);
+}
+else{
+  digitalWrite(redPin,HIGH);
+  digitalWrite(greenPin,LOW);
+  myServo.write(0);
+  digitalWrite(buzzPin,LOW);
+}
+}
